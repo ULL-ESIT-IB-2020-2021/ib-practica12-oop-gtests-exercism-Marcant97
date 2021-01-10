@@ -6,6 +6,78 @@
 #include <cstring>
 #include "fecha.h"
 
+//Función para aumentar y ordenar las fechas
+void fechasOrdenadas1(std::vector<int> myvec){
+  int dia,mes,anyo,result;
+  std::vector<int> vecComparador{};
+  for (unsigned int i=0;i<(myvec.size()-2);){
+    dia=myvec[0+i];
+    mes=myvec[1+i];
+    anyo=myvec[2+i];
+    result=((anyo*10000)+(mes*100)+dia);
+    vecComparador.emplace_back(result);
+    i+=3;
+  }
+  sort(vecComparador.begin(), vecComparador.end());
+  //Parte para devolver las fechas ya ordenadas
+  int dia1;
+  int mes1;
+  int anyo1;
+  for (unsigned int i=0;i<vecComparador.size();i++){
+    int var1=vecComparador[i];
+    anyo1=(var1/10000);
+    mes1=((var1%10000)/100);
+    dia1=((var1%10000)%100);
+    std::cout<<dia1<<"/"<<mes1<<"/"<<anyo1<<std::endl;
+  }
+}
+
+
+
+//Función para obtener fechas
+std::vector<std::string> ObtenerFechas(std::string nombre_fichero){
+  std::ifstream fichero(nombre_fichero.c_str());
+  std::string linea; 
+  std::vector<std::string> Fechas{};
+  if( fichero.fail() ){
+    std::cout << "No existe el fichero!" << std::endl;
+        exit(1);
+    }
+  while (! fichero.eof()) {
+    getline(fichero,linea);
+    if (! fichero.eof()) 
+      Fechas.emplace_back(linea);
+    }
+  fichero.close();
+  return Fechas;
+}
+std::vector<int> SepararFecha1(std::vector<std::string> date){
+    std::vector <int> parsed_date;
+    for (unsigned int i=0;i<date.size();i++){
+      std::replace(date[i].begin(), date[i].end(), '/', ' ');
+      std::stringstream ss(date[i]);
+      int day, month, year;
+      while(ss >> day && ss >> month && ss >> year){
+        parsed_date.emplace_back(day);
+        parsed_date.emplace_back(month);
+        parsed_date.emplace_back(year);
+      }
+    }
+    return parsed_date;
+}
+std::vector<int> SepararFecha(std::string date){
+    std::vector <int> parsed_date;
+    std::replace(date.begin(), date.end(), '/', ' ');
+    std::stringstream ss(date);
+    int day, month, year;
+    while(ss >> day && ss >> month && ss >> year){
+        parsed_date.emplace_back(day);
+        parsed_date.emplace_back(month);
+        parsed_date.emplace_back(year);
+    }
+    return parsed_date;
+}
+
 void Usage(int argc, char *argv[]) {
   if(argc == 2 && strcmp(argv[1], "--help") == 0){
     std::cout <<kHelpText<< " Modo de uso: "<<argv[0]<<" fecha(dd/mm/aaaa) numero-dias-posteriores nombre-fichero"<<std::endl;
@@ -15,36 +87,6 @@ void Usage(int argc, char *argv[]) {
     exit(EXIT_SUCCESS);
     }
 }
-
-//   std::string parameter{argv[1]};
-//   if (parameter == "--help") {
-//     std::cout << kHelpText << std::endl;
-//     exit(EXIT_SUCCESS);
-//   }
-//   if ((argc != 4)) {
-//     std::cout << argv[0] << ": Faltan parámetros" << std::endl;
-//     std::cout << "Pruebe " << argv[0] << " --help para más información" << std::endl;
-//     exit(EXIT_SUCCESS);
-//   }
-  
-// }
-
-std::vector<int> ParseString(std::string date){
-    std::vector <int> parsed_date;
-    std::replace(date.begin(), date.end(), '/', ' ');
-    std::stringstream ss(date);
-    int day, month, year;
-    while(ss >> day && ss >> month && ss >> year){
-        std::cout << "Día: " << day << std::endl;
-        std::cout << "Mes: " << month << std::endl;
-        std::cout << "Año: " << year << std::endl;
-        parsed_date.emplace_back(day);
-        parsed_date.emplace_back(month);
-        parsed_date.emplace_back(year);
-    }
-    return parsed_date;
-}
-
 ClaseFecha::ClaseFecha(int dia, int mes, int anyo){  //Constructor por defecto.
   m_dia=dia;
   m_mes=mes;

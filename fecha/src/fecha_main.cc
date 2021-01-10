@@ -9,7 +9,7 @@
 int main(int argc, char* argv[]){
   Usage(argc, argv);
   std::string date {argv[1]};     //Dia,mes y año
-  std::vector<int>fecha_separada=ParseString(date);
+  std::vector<int>fecha_separada=SepararFecha(date);
   int dia1= fecha_separada[0];
   int mes1=fecha_separada[1];
   int anyo1=fecha_separada[2];
@@ -25,5 +25,10 @@ int main(int argc, char* argv[]){
   hoy.esBisiesto();
   hoy.fechasPosteriores(kNum,kNombre);
   std::cout<<"Ya puedes encontrar las "<<kNum <<" fechas posteriores, en el documento "<<kNombre<< " que se ha generado."<<std::endl;
-  return 0;
+  std::cout<<"Dime el nombre de tu fichero"<<std::endl;
+  std::string nombre1;
+  std::cin>>nombre1;
+  std::vector<std::string> vecMostrar= ObtenerFechas(nombre1);
+  std::vector<int> fechas2= SepararFecha1(vecMostrar);
+  fechasOrdenadas1(fechas2);
 }
