@@ -1,6 +1,7 @@
 #include <iostream>
 #include "complejo.h"
 
+
 double real1;
 double imag1;
 double real2;

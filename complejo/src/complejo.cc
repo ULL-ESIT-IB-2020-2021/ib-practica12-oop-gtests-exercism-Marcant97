@@ -1,7 +1,6 @@
 #include <iostream>
 #include "complejo.h"
 
-
   complejo::complejo(double real, double imaginario){ //Constructor por defecto
     parte_real = real;
     parte_imaginaria = imaginario;

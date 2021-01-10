@@ -14,21 +14,16 @@ int main(int argc, char* argv[]){
   int mes1=fecha_separada[1];
   int anyo1=fecha_separada[2];
 
-  const int kNum = atoi(argv[2]);      //numero fechas
-  
-  const std::string kNombre{argv[3]};  //nombre archivo
-
   ClaseFecha hoy(0,0,0);
   hoy.establecerFecha(dia1, mes1, anyo1);
   hoy.print();
   std::cout<<" "<<std::endl;
   hoy.esBisiesto();
-  hoy.fechasPosteriores(kNum,kNombre);
-  std::cout<<"Ya puedes encontrar las "<<kNum <<" fechas posteriores, en el documento "<<kNombre<< " que se ha generado."<<std::endl;
-  std::cout<<"Dime el nombre de tu fichero"<<std::endl;
-  std::string nombre1;
-  std::cin>>nombre1;
-  std::vector<std::string> vecMostrar= ObtenerFechas(nombre1);
+
+  std::string fichero_entrada=argv[2];
+  std::string fichero_salida=argv[3];
+
+  std::vector<std::string> vecMostrar= ObtenerFechas(fichero_entrada);
   std::vector<int> fechas2= SepararFecha1(vecMostrar);
-  fechasOrdenadas1(fechas2);
+  fechasOrdenadas1(fechas2, fichero_salida);
 }

@@ -6,8 +6,8 @@
 #include <cstring>
 #include "fecha.h"
 
-//Función para aumentar y ordenar las fechas
-void fechasOrdenadas1(std::vector<int> myvec){
+//Función para aumentar y ordenar las fechas, disminuir y meter en un fichero ordenadas cronológicamente
+void fechasOrdenadas1(std::vector<int> myvec, std::string fichero_salida){
   int dia,mes,anyo,result;
   std::vector<int> vecComparador{};
   for (unsigned int i=0;i<(myvec.size()-2);){
@@ -23,15 +23,17 @@ void fechasOrdenadas1(std::vector<int> myvec){
   int dia1;
   int mes1;
   int anyo1;
+  std::ofstream fichero(fichero_salida);  //Abrimos fichero de salida
   for (unsigned int i=0;i<vecComparador.size();i++){
     int var1=vecComparador[i];
     anyo1=(var1/10000);
     mes1=((var1%10000)/100);
     dia1=((var1%10000)%100);
-    std::cout<<dia1<<"/"<<mes1<<"/"<<anyo1<<std::endl;
+    fichero << dia1<< "/" << mes1 << "/" << anyo1 <<std::endl;  //Introducimos fecha en el fichero de salida
+    // std::cout<<dia1<<"/"<<mes1<<"/"<<anyo1<<std::endl;
   }
+  fichero.close(); //Cerramos fichero de salida
 }
-
 
 
 //Función para obtener fechas
@@ -51,6 +53,8 @@ std::vector<std::string> ObtenerFechas(std::string nombre_fichero){
   fichero.close();
   return Fechas;
 }
+
+//Función para separar fechas de un fichero
 std::vector<int> SepararFecha1(std::vector<std::string> date){
     std::vector <int> parsed_date;
     for (unsigned int i=0;i<date.size();i++){
@@ -65,6 +69,7 @@ std::vector<int> SepararFecha1(std::vector<std::string> date){
     }
     return parsed_date;
 }
+//Funcion para separar una fecha solo pasada como string
 std::vector<int> SepararFecha(std::string date){
     std::vector <int> parsed_date;
     std::replace(date.begin(), date.end(), '/', ' ');
@@ -77,10 +82,10 @@ std::vector<int> SepararFecha(std::string date){
     }
     return parsed_date;
 }
-
+//Usage
 void Usage(int argc, char *argv[]) {
   if(argc == 2 && strcmp(argv[1], "--help") == 0){
-    std::cout <<kHelpText<< " Modo de uso: "<<argv[0]<<" fecha(dd/mm/aaaa) numero-dias-posteriores nombre-fichero"<<std::endl;
+    std::cout <<kHelpText<< " Modo de uso: "<<argv[0]<<" dd/mm/aa fichero_entrada fichero_salida"<<std::endl;
   }
   if(argc != 4){
     std::cout << "Error en el numero de argumentos, pruebe --help para mayor información"<<std::endl;
@@ -112,60 +117,60 @@ ClaseFecha::ClaseFecha(int dia, int mes, int anyo){  //Constructor por defecto.
   }
 
 
-  void ClaseFecha::fechasPosteriores(int dias_posteriores, std::string nombre_archivo){
+  // void ClaseFecha::fechasPosteriores(int dias_posteriores, std::string nombre_archivo){
 
-    std::ofstream fichero(nombre_archivo);
-    for (int i = 0; i < dias_posteriores; i++){
-      if(((m_anyo%4)==0)&&(m_mes==2)){           //Para imprimir dia 29 de años bisiestos de febrero.
-        if (m_dia > 29){
-          m_dia = 1;
-          m_mes ++;
-        }
-        if (m_mes > 12){
-          m_mes = 1;
-          m_anyo++;
-        }
-        fichero << m_dia << "/" << m_mes << "/" << m_anyo <<std::endl;
-        m_dia++;
-      }  
-      if(((m_mes)==2 && ((m_anyo%4)!=0))){
-        if (m_dia > 31){
-          m_dia = 1;
-          m_mes++;
-        }
-        if (m_mes > 12){
-          m_mes = 1;
-          m_anyo++;
-        }
-        fichero << m_dia << "/" << m_mes << "/" << m_anyo <<std::endl;
-        m_dia++;
-      }
-      //meses de 31 dias
-      if(((m_mes)==1)||((m_mes)==3)||((m_mes)==5)||((m_mes)==7)||((m_mes)==8)||((m_mes)==10)||((m_mes)==12)){
-        if (m_dia > 31){
-          m_dia = 1;
-          m_mes++;
-        }
-        if (m_mes > 12){
-          m_mes = 1;
-          m_anyo++;
-        }
-        fichero << m_dia << "/" << m_mes << "/" << m_anyo <<std::endl;
-        m_dia++;
-      }
-      //meses de 30 dias
-      if(((m_mes)==4)||((m_mes)==6)||((m_mes)==9)||((m_mes)==11)){
-        if (m_dia > 30){
-          m_dia = 1;
-          m_mes++;
-        }
-        if (m_mes > 12){
-          m_mes = 1;
-          m_anyo++;
-        }
-        fichero << m_dia << "/" << m_mes << "/" << m_anyo <<std::endl;
-        m_dia++;
-      }
-    }
-    fichero.close();
-  }
+  //   std::ofstream fichero(nombre_archivo);
+  //   for (int i = 0; i < dias_posteriores; i++){
+  //     if(((m_anyo%4)==0)&&(m_mes==2)){           //Para imprimir dia 29 de años bisiestos de febrero.
+  //       if (m_dia > 29){
+  //         m_dia = 1;
+  //         m_mes ++;
+  //       }
+  //       if (m_mes > 12){
+  //         m_mes = 1;
+  //         m_anyo++;
+  //       }
+  //       fichero << m_dia << "/" << m_mes << "/" << m_anyo <<std::endl;
+  //       m_dia++;
+  //     }  
+  //     if(((m_mes)==2 && ((m_anyo%4)!=0))){
+  //       if (m_dia > 31){
+  //         m_dia = 1;
+  //         m_mes++;
+  //       }
+  //       if (m_mes > 12){
+  //         m_mes = 1;
+  //         m_anyo++;
+  //       }
+  //       fichero << m_dia << "/" << m_mes << "/" << m_anyo <<std::endl;
+  //       m_dia++;
+  //     }
+  //     //meses de 31 dias
+  //     if(((m_mes)==1)||((m_mes)==3)||((m_mes)==5)||((m_mes)==7)||((m_mes)==8)||((m_mes)==10)||((m_mes)==12)){
+  //       if (m_dia > 31){
+  //         m_dia = 1;
+  //         m_mes++;
+  //       }
+  //       if (m_mes > 12){
+  //         m_mes = 1;
+  //         m_anyo++;
+  //       }
+  //       fichero << m_dia << "/" << m_mes << "/" << m_anyo <<std::endl;
+  //       m_dia++;
+  //     }
+  //     //meses de 30 dias
+  //     if(((m_mes)==4)||((m_mes)==6)||((m_mes)==9)||((m_mes)==11)){
+  //       if (m_dia > 30){
+  //         m_dia = 1;
+  //         m_mes++;
+  //       }
+  //       if (m_mes > 12){
+  //         m_mes = 1;
+  //         m_anyo++;
+  //       }
+  //       fichero << m_dia << "/" << m_mes << "/" << m_anyo <<std::endl;
+  //       m_dia++;
+  //     }
+  //   }
+  //   fichero.close();
+  // }
