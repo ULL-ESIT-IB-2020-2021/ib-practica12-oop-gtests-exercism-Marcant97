@@ -6,7 +6,7 @@ private:
 public:
   complejo(double real, double imaginario); //Constructor por defecto
   void print();  //Función print complejo
-  double suma(double real, double imaginario, double real1, double imaginario1); //Función suma de 2 complejos
-  double resta(double real, double imaginario, double real1, double imaginario1); //Función resta de 2 complejos
+  double suma(complejo &complejo1,complejo &complejo2); //Función suma de 2 complejos
+  double resta(complejo &complejo1,complejo &complejo2); //Función resta de 2 complejos
 
 };

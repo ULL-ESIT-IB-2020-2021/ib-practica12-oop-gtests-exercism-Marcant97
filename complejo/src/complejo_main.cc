@@ -28,8 +28,8 @@ int main(){
 
     complejo1.print();
     complejo2.print();
-    resultado.suma(real1, imag1, real2, imag2);
-    resultado.print();
+    resultado.suma(complejo1, complejo2);
+    
   }
 
 
@@ -41,7 +41,7 @@ int main(){
     std::cout<<"Introduce la parte real del segundo número complejo"<<std::endl;
     std::cin>>real2;
     std::cout<<"Introduce la parte imaginaria del segundo número complejo"<<std::endl;
-    std::cin>>imag1;
+    std::cin>>imag2;
 
     complejo complejo1(real1, imag1);
     complejo complejo2(real2, imag2);
@@ -49,7 +49,6 @@ int main(){
 
     complejo1.print();
     complejo2.print();
-    resultado.resta(real1, imag1, real2, imag2);
-    resultado.print();
+    resultado.resta(complejo1, complejo2);
   }
 }
