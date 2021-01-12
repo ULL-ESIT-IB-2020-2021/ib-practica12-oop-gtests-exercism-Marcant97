@@ -6,6 +6,7 @@
 #include <cstring>
 #include "fecha.h"
 
+
 //Función para aumentar y ordenar las fechas, disminuir y meter en un fichero ordenadas cronológicamente
 void fechasOrdenadas1(std::vector<int> myvec, std::string fichero_salida){
   int dia,mes,anyo,result;
@@ -107,12 +108,14 @@ ClaseFecha::ClaseFecha(int dia, int mes, int anyo){  //Constructor por defecto.
     std::cout << m_dia << '/' << m_mes << '/' << m_anyo;
   }
 
-  void ClaseFecha::esBisiesto(){   //Método que determina si el año es bisiesto o no.
+  bool ClaseFecha::esBisiesto(){   //Método que determina si el año es bisiesto o no.
     if ((m_anyo%4) == 0){
 	  std::cout<<m_anyo<<" es bisiesto"<<std::endl;
+    return true;
 	}
 	if ((m_anyo%4) != 0){
 	  std::cout<<m_anyo<<" no es bisiesto"<<std::endl;
+    return false;
 	}
   }
 

@@ -19,6 +19,6 @@ ClaseFecha(int dia, int mes, int anyo); //Constructor por defecto.
 
   void establecerFecha(int dia, int mes, int anyo);
   void print();
-  void esBisiesto();
+  bool esBisiesto();
 };
 std::vector<std::string> ObtenerFechas(std::string nombre_fichero);
